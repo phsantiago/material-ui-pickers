@@ -1,0 +1,6 @@
+{
+  "name": "@material-ui/pickers-adapter-dayjs",
+  "module": "index.js",
+  "main": "index.cjs.js",
+  "typings": "../dayjs.d.ts"
+}

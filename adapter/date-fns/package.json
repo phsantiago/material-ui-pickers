@@ -1,0 +1,6 @@
+{
+  "name": "@material-ui/pickers-adapter-date-fns",
+  "module": "index.js",
+  "main": "index.cjs.js",
+  "typings": "../date-fns.d.ts"
+}

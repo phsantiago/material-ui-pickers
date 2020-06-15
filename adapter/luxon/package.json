@@ -1,0 +1,6 @@
+{
+  "name": "@material-ui/pickers-adapter-luxon",
+  "module": "index.js",
+  "main": "index.cjs.js",
+  "typings": "../luxon.d.ts"
+}

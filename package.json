@@ -1,73 +1,75 @@
 {
-  "version": "4.0.0",
-  "private": true,
-  "description": "Material-ui pickers root package",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs",
-    "lib": "lib"
-  },
-  "workspaces": [
-    "lib",
-    "docs"
+  "name": "@material-ui/pickers",
+  "version": "4.0.0-alpha.8",
+  "private": false,
+  "description": "React components, that implements material design pickers for material-ui v4",
+  "keywords": [
+    "material-ui",
+    "pickers",
+    "@material-ui/pickers",
+    "datepicker",
+    "timepicker",
+    "date-picker",
+    "time-picker",
+    "react",
+    "react-component",
+    "material design"
   ],
-  "engines": {
-    "node": ">=8.0.0"
+  "sideEffects": false,
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mui-org/material-ui-pickers/issues"
   },
-  "scripts": {
-    "start": "yarn dev",
-    "dev": "yarn workspace docs dev",
-    "e2e:run": "cypress run",
-    "e2e:open": "cypress open",
-    "docgen": "node docs/scripts/docgen.js",
-    "lint": "eslint './**/*.ts*' './**/*.js' './**/*.jsx'",
-    "prettier": "prettier --write './{lib,docs,e2e}/**/*.{js,jsx,ts,tsx,json,css,md,mdx}'",
-    "build": "yarn workspaces run build & yarn workspaces run build:typescript",
-    "release": "yarn workspace @material-ui/pickers release && git push && git push --tags"
-  },
+  "homepage": "https://material-ui-pickers.dev/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mui-org/material-ui-pickers.git"
+    "url": "https://github.com/mui-org/material-ui-pickers"
   },
-  "devDependencies": {
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
-    "@babel/runtime": "^7.8.4",
-    "@cypress/webpack-preprocessor": "^4.1.0",
-    "@percy/cypress": "^2.3.0",
-    "@testing-library/dom": "^7.5.7",
-    "@testing-library/react": "^10.0.4",
-    "@typescript-eslint/eslint-plugin": "^1.6.0",
-    "@typescript-eslint/parser": "^1.6.0",
-    "cypress": "4.7.0",
-    "eslint": "^5.16.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-pretty-imports": "^1.1.3",
-    "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^1.6.0",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.2.9",
-    "prettier": "^1.14.3",
-    "ts-loader": "^7.0.5",
-    "wait-on": "^4.0.0"
+  "author": {
+    "name": "Dmitriy Kovalenko",
+    "email": "dmtr.kovalenko@outlook.com"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
+  "peerDependencies": {
+    "@material-ui/core": "^4.10.1",
+    "@material-ui/lab": "^4.0.0-alpha.54",
+    "@types/react": "^16.8.6",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "@material-ui/lab": {
+      "optional": true
     }
   },
-  "lint-staged": {
-    "lib/src/**/*.{ts,tsx}": [
-      "yarn docgen",
-      "git add docs/prop-types.json"
-    ],
-    "*.{js,jsx,ts,tsx,json,css,md,mdx}": [
-      "prettier --write"
-    ]
+  "dependencies": {
+    "@date-io/date-fns": "^2.6.0",
+    "@date-io/dayjs": "^2.6.0",
+    "@date-io/luxon": "^2.6.0",
+    "@date-io/moment": "^2.6.0",
+    "clsx": "^1.0.2",
+    "prop-types": "^15.7.2",
+    "react-transition-group": "^4.4.1",
+    "rifm": "^0.11.0"
   },
-  "eslintIgnore": [
-    "**/node_modules",
-    "**/coverage",
-    "videos/",
-    "**/build"
-  ]
+  "scripts": {
+    "test": "jest",
+    "test:typescript": "rimraf src/__tests__/dist && tsc -p src/__tests__/tsconfig.json",
+    "test:date-fns": "UTILS=date-fns yarn test",
+    "test:luxon": "UTILS=luxon yarn test",
+    "test:moment": "UTILS=moment yarn test",
+    "start": "rollup --config rollup.config.dev.js --watch & npx tsc --watch",
+    "prebuild": "rimraf build",
+    "build:prepare-files": "node prepare-build-files.js",
+    "build:bundle": "rollup --config",
+    "build:typescript": "tsc --project tsconfig.json && tsc -p tsconfig.adapters.json",
+    "build": "yarn build:typescript && yarn build:bundle && yarn build:prepare-files",
+    "build:analyze": "yarn build",
+    "release": "yarn test && yarn version && yarn build && yarn publish --non-interactive --tag next build"
+  },
+  "main": "./dist/material-ui-pickers.js",
+  "module": "./index.js",
+  "typings": "./index.d.ts"
 }
